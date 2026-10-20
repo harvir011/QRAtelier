@@ -1,14 +1,674 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR GENERATOR</title>
-    <link href="style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Atelier — Creative QR Code Studio & Vector Generator</title>
+  <meta name="description" content="Design-forward, scannable QR Code generator with real-time styling, custom palettes, contrast auditing, and 4K vector export.">
+
+  <!-- Favicon SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C8FF00'><rect x='3' y='3' width='8' height='8' rx='2'/><rect x='13' y='3' width='8' height='8' rx='2'/><rect x='3' y='13' width='8' height='8' rx='2'/><rect x='13' y='13' width='3' height='3'/><rect x='18' y='13' width='3' height='3'/><rect x='13' y='18' width='8' height='3'/></svg>">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
 
-    <script src="script.js"></script>
+  <!-- ========================================================================
+       SITE HEADER / NAVIGATION
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#top" class="brand-link" aria-label="QR Atelier Home">
+        <div class="brand-mark">
+          <!-- Modular geometric QR glyph -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="14" width="3" height="3"></rect>
+            <rect x="18" y="14" width="3" height="3"></rect>
+            <rect x="14" y="18" width="7" height="3"></rect>
+          </svg>
+        </div>
+        <div class="brand-name">
+          QR Atelier
+          <span class="brand-tag">v2.4 Studio</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <a href="#generator" class="nav-link">Studio</a>
+        <a href="#customizer" class="nav-link">Customizer</a>
+        <a href="#history" class="nav-link">
+          Saved Codes
+          <span id="history-count-badge" class="badge-counter">0</span>
+        </a>
+        <a href="#how-it-works" class="nav-link">Workflow</a>
+      </nav>
+
+      <!-- Nav Quick Actions -->
+      <div class="nav-actions">
+        <button type="button" id="btn-reset" class="btn-ghost-sm" title="Reset all settings to default">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+          Reset Studio
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button type="button" id="nav-toggle" class="btn-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Responsive Mobile Drawer -->
+    <div id="mobile-nav" class="mobile-nav-drawer" aria-label="Mobile Navigation">
+      <a href="#generator" class="nav-link">Studio Workspace</a>
+      <a href="#customizer" class="nav-link">Design Controls</a>
+      <a href="#history" class="nav-link">Saved History</a>
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ========================================================================
+         HERO SECTION
+         ======================================================================== -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-pill-badge">
+          <span class="pulse-dot"></span>
+          Your links, reimagined.
+        </div>
+
+        <h1 class="hero-title">
+          Make your mark. <br>
+          <span class="text-gradient">Share anything.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Create beautiful, customizable QR codes for links, profiles, documents, and Wi-Fi.
+          Precision-crafted for digital screens, creative campaigns, and high-DPI print.
+        </p>
+
+        <div class="hero-actions">
+          <button type="button" id="hero-cta" class="btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Create QR Code
+          </button>
+          <a href="#history" class="btn-secondary">
+            View History
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         STUDIO WORKSPACE (2-COLUMN INTERFACE)
+         ======================================================================== -->
+    <section id="generator" class="studio-section">
+      <div class="container">
+        <div class="studio-grid">
+
+          <!-- ------------------------------------------------------------------
+               LEFT COLUMN: STUDIO CUSTOMIZATION PANEL
+               ------------------------------------------------------------------ -->
+          <div class="studio-card">
+            <div class="studio-header">
+              <div class="studio-title-group">
+                <h2>Studio Controls</h2>
+                <p>Configure payload, geometry, and aesthetic styling</p>
+              </div>
+            </div>
+
+            <div class="studio-body">
+              <!-- Content Type Switcher -->
+              <div class="form-group">
+                <label class="form-label">
+                  Content Type
+                  <span class="form-hint">Choose destination format</span>
+                </label>
+                <div class="type-segmented-bar" role="tablist" aria-label="QR Code Content Type">
+                  <button type="button" class="type-tab-btn active" data-type="url" role="tab" aria-selected="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                    URL
+                  </button>
+                  <button type="button" class="type-tab-btn" data-type="text" role="tab" aria-selected="false">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
+                    Text
+                  </button>
+                  <button type="button" class="type-tab-btn" data-type="email" role="tab" aria-selected="false">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    Email
+                  </button>
+                  <button type="button" class="type-tab-btn" data-type="phone" role="tab" aria-selected="false">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    Phone
+                  </button>
+                  <button type="button" class="type-tab-btn" data-type="wifi" role="tab" aria-selected="false">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                    Wi-Fi
+                  </button>
+                  <button type="button" class="type-tab-btn" data-type="vcard" role="tab" aria-selected="false">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    Contact
+                  </button>
+                </div>
+              </div>
+
+              <!-- Dynamic Form Sections -->
+              <div class="dynamic-forms-wrapper">
+                <!-- 1. URL Form -->
+                <div class="type-form-section active" data-type="url">
+                  <div class="form-group">
+                    <label for="input-url" class="form-label">
+                      Destination Link
+                      <span class="form-hint">Supports http, https, custom schemes</span>
+                    </label>
+                    <input type="url" id="input-url" class="input-field" placeholder="https://yourbrand.com/profile" value="https://github.com" autocomplete="off" spellcheck="false">
+                  </div>
+                </div>
+
+                <!-- 2. Plain Text Form -->
+                <div class="type-form-section" data-type="text">
+                  <div class="form-group">
+                    <label for="input-text" class="form-label">
+                      Text Message or Payload
+                      <span class="form-hint">Notes, keys, raw content</span>
+                    </label>
+                    <textarea id="input-text" class="input-field" placeholder="Type or paste any text content here..."></textarea>
+                  </div>
+                </div>
+
+                <!-- 3. Email Form -->
+                <div class="type-form-section" data-type="email">
+                  <div class="form-group">
+                    <label for="input-email-to" class="form-label">Recipient Email</label>
+                    <input type="email" id="input-email-to" class="input-field" placeholder="hello@studio.com">
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="input-email-subject" class="form-label">Subject Line</label>
+                      <input type="text" id="input-email-subject" class="input-field" placeholder="Project Inquiry">
+                    </div>
+                    <div class="form-group">
+                      <label for="input-email-body" class="form-label">Pre-filled Message</label>
+                      <input type="text" id="input-email-body" class="input-field" placeholder="Hi, let's connect...">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4. Phone Form -->
+                <div class="type-form-section" data-type="phone">
+                  <div class="form-group">
+                    <label for="input-phone" class="form-label">Phone Number with Country Code</label>
+                    <input type="tel" id="input-phone" class="input-field" placeholder="+1 (555) 234-5678">
+                  </div>
+                </div>
+
+                <!-- 5. Wi-Fi Form -->
+                <div class="type-form-section" data-type="wifi">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="input-wifi-ssid" class="form-label">Network Name (SSID)</label>
+                      <input type="text" id="input-wifi-ssid" class="input-field" placeholder="Studio_Guest_5G">
+                    </div>
+                    <div class="form-group">
+                      <label for="input-wifi-type" class="form-label">Encryption Type</label>
+                      <select id="input-wifi-type" class="select-field">
+                        <option value="WPA">WPA / WPA2 / WPA3 (Recommended)</option>
+                        <option value="WEP">WEP (Legacy)</option>
+                        <option value="nopass">None (Open Network)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="input-wifi-pass" class="form-label">Wi-Fi Password</label>
+                    <div class="input-with-action">
+                      <input type="password" id="input-wifi-pass" class="input-field" placeholder="••••••••••••">
+                      <button type="button" id="btn-toggle-wifi-pass" class="input-action-btn" aria-label="Show password">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="form-group" style="flex-direction: row; align-items: center; gap: 0.5rem; margin-top: 0.25rem;">
+                    <input type="checkbox" id="input-wifi-hidden" style="accent-color: var(--accent-lime); width: 16px; height: 16px;">
+                    <label for="input-wifi-hidden" style="font-size: 0.82rem; color: var(--text-secondary); cursor: pointer;">This is a hidden network</label>
+                  </div>
+                </div>
+
+                <!-- 6. vCard / Contact Form -->
+                <div class="type-form-section" data-type="vcard">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="input-vcard-first" class="form-label">First Name</label>
+                      <input type="text" id="input-vcard-first" class="input-field" placeholder="Harvir">
+                    </div>
+                    <div class="form-group">
+                      <label for="input-vcard-last" class="form-label">Last Name</label>
+                      <input type="text" id="input-vcard-last" class="input-field" placeholder="Kaur">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="input-vcard-phone" class="form-label">Phone</label>
+                      <input type="tel" id="input-vcard-phone" class="input-field" placeholder="+1 555 0192">
+                    </div>
+                    <div class="form-group">
+                      <label for="input-vcard-email" class="form-label">Email</label>
+                      <input type="email" id="input-vcard-email" class="input-field" placeholder="designer@atelier.io">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="input-vcard-org" class="form-label">Organization / Studio</label>
+                    <input type="text" id="input-vcard-org" class="input-field" placeholder="Atelier Creative Labs">
+                  </div>
+                </div>
+              </div>
+
+              <div class="studio-divider"></div>
+
+              <!-- --------------------------------------------------------------
+                   CUSTOMIZATION ACCORDION / SETTINGS
+                   -------------------------------------------------------------- -->
+              <div id="customizer" class="customizer-controls">
+
+                <!-- 1. Colors & Contrast -->
+                <div class="form-group">
+                  <div class="custom-section-title">
+                    <span>Palette & Lighting</span>
+                    <span id="contrast-badge" class="contrast-badge contrast-great">
+                      <span class="dot"></span> 12.4:1 (Ideal)
+                    </span>
+                  </div>
+
+                  <div class="color-controls-grid">
+                    <!-- Foreground -->
+                    <div class="color-control-block">
+                      <label class="form-label" style="font-size: 0.76rem;">QR Modules (FG)</label>
+                      <div class="color-picker-wrapper">
+                        <input type="color" id="fg-color-picker" class="color-picker-input" value="#C8FF00">
+                        <input type="text" id="fg-color-hex" class="color-hex-text" value="#C8FF00" maxlength="7">
+                      </div>
+                    </div>
+
+                    <!-- Swap Colors Button -->
+                    <button type="button" id="btn-swap-colors" class="btn-swap-colors" title="Invert / Swap Colors">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+                    </button>
+
+                    <!-- Background -->
+                    <div class="color-control-block">
+                      <label class="form-label" style="font-size: 0.76rem;">Canvas Backing (BG)</label>
+                      <div class="color-picker-wrapper">
+                        <input type="color" id="bg-color-picker" class="color-picker-input" value="#0B0D13">
+                        <input type="text" id="bg-color-hex" class="color-hex-text" value="#0B0D13" maxlength="11">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Quick Swatch Presets -->
+                  <div class="swatches-row">
+                    <span style="font-size: 0.74rem; color: var(--text-muted); margin-right: 0.25rem;">Presets:</span>
+                    <button type="button" class="color-swatch" data-target="fg" data-color="#C8FF00" style="background-color: #C8FF00;" title="Electric Lime"></button>
+                    <button type="button" class="color-swatch" data-target="fg" data-color="#00F0FF" style="background-color: #00F0FF;" title="Cyber Cyan"></button>
+                    <button type="button" class="color-swatch" data-target="fg" data-color="#FFFFFF" style="background-color: #FFFFFF;" title="Pure White"></button>
+                    <button type="button" class="color-swatch" data-target="fg" data-color="#A855F7" style="background-color: #A855F7;" title="Neon Violet"></button>
+                    <button type="button" class="color-swatch" data-target="fg" data-color="#FF5722" style="background-color: #FF5722;" title="Sunset Amber"></button>
+                    <span style="border-left: 1px solid var(--border-subtle); height: 16px; margin: 0 0.15rem;"></span>
+                    <button type="button" class="color-swatch" data-target="bg" data-color="#0B0D13" style="background-color: #0B0D13;" title="Midnight Base"></button>
+                    <button type="button" class="color-swatch" data-target="bg" data-color="#000000" style="background-color: #000000;" title="Deep Pitch"></button>
+                    <button type="button" class="color-swatch" data-target="bg" data-color="#181E30" style="background-color: #181E30;" title="Elevated Slate"></button>
+                    <button type="button" class="color-swatch" data-target="bg" data-color="#F8F9FA" style="background-color: #F8F9FA;" title="Clean White"></button>
+                    <button type="button" class="color-swatch swatch-transparent" data-target="bg" data-color="transparent" title="Transparent Background"></button>
+                  </div>
+                </div>
+
+                <!-- 2. Module Style & Geometry -->
+                <div class="form-group" style="margin-top: 1.25rem;">
+                  <label class="form-label">
+                    Module Geometry
+                    <span class="form-hint">Shape & corner styling</span>
+                  </label>
+                  <div class="segmented-radios">
+                    <label>
+                      <input type="radio" name="qr-style" value="square" checked>
+                      <span class="segmented-label-content">Square</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="qr-style" value="rounded">
+                      <span class="segmented-label-content">Rounded</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="qr-style" value="dots">
+                      <span class="segmented-label-content">Dots</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- 3. Margin & Error Correction -->
+                <div class="form-row" style="margin-top: 1.25rem;">
+                  <div class="form-group">
+                    <label class="form-label">Quiet Zone Margin</label>
+                    <div class="segmented-radios">
+                      <label><input type="radio" name="qr-margin" value="0"><span class="segmented-label-content">0</span></label>
+                      <label><input type="radio" name="qr-margin" value="1"><span class="segmented-label-content">1</span></label>
+                      <label><input type="radio" name="qr-margin" value="2" checked><span class="segmented-label-content">2</span></label>
+                      <label><input type="radio" name="qr-margin" value="4"><span class="segmented-label-content">4</span></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Error Correction (ECC)</label>
+                    <div class="segmented-radios">
+                      <label title="Low ~7% recovery"><input type="radio" name="qr-ecc" value="L"><span class="segmented-label-content">L</span></label>
+                      <label title="Medium ~15% recovery"><input type="radio" name="qr-ecc" value="M" checked><span class="segmented-label-content">M</span></label>
+                      <label title="Quartile ~25% recovery"><input type="radio" name="qr-ecc" value="Q"><span class="segmented-label-content">Q</span></label>
+                      <label title="High ~30% recovery"><input type="radio" name="qr-ecc" value="H"><span class="segmented-label-content">H</span></label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4. Export Size & Center Glyph -->
+                <div class="form-row" style="margin-top: 1.25rem;">
+                  <div class="form-group">
+                    <label for="select-size" class="form-label">Export Resolution</label>
+                    <select id="select-size" class="select-field">
+                      <option value="512">512 × 512 px (Standard)</option>
+                      <option value="1024" selected>1024 × 1024 px (HD Screen)</option>
+                      <option value="2048">2048 × 2048 px (Ultra HD / Print)</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="select-icon" class="form-label">Center Emblem</label>
+                    <select id="select-icon" class="select-field">
+                      <option value="none" selected>None (Clean Matrix)</option>
+                      <option value="link">Link Symbol</option>
+                      <option value="wifi">Wi-Fi Arcs</option>
+                      <option value="mail">Mail Envelope</option>
+                      <option value="star">Star</option>
+                      <option value="heart">Heart</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Main Primary CTA Action -->
+              <div class="generate-action-bar">
+                <button type="button" id="btn-generate-main" class="btn-primary btn-generate-hero">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  Generate & Save to History
+                </button>
+                <span class="shortcut-hint">ProTip: Press [Ctrl + Enter] anywhere to generate</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------------------------------------------------
+               RIGHT COLUMN: LIVE STUDIO PREVIEW STAGE
+               ------------------------------------------------------------------ -->
+          <div class="preview-card">
+            <div class="preview-header">
+              <div class="preview-badge-group">
+                <span style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--text-primary);">
+                  Studio Preview
+                </span>
+                <span id="scannable-status" class="status-pill status-verified">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  100% Scannable
+                </span>
+              </div>
+            </div>
+
+            <!-- The Live Showcase Pedestal -->
+            <div id="preview-stage" class="preview-stage">
+              <div class="stage-frame">
+                <!-- Precision Viewfinder Brackets -->
+                <span class="bracket bracket-tl"></span>
+                <span class="bracket bracket-tr"></span>
+                <span class="bracket bracket-bl"></span>
+                <span class="bracket bracket-br"></span>
+
+                <!-- The Live High-DPI Canvas -->
+                <canvas id="qr-preview-canvas" width="1024" height="1024" aria-label="Generated QR Code Preview"></canvas>
+
+                <!-- Hidden SVG container for vector caching -->
+                <div id="qr-svg-container" style="display: none;"></div>
+
+                <!-- Empty Placeholder State -->
+                <div id="qr-placeholder" class="preview-placeholder" style="display: none;">
+                  <div class="placeholder-grid-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><path d="M14 14h7v7h-7z"></path></svg>
+                  </div>
+                  <p>Studio idle.<br>Type your link or text to preview.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Telemetry Bar -->
+            <div class="preview-meta-bar">
+              <div class="meta-item">
+                <span class="meta-label">Matrix Grid</span>
+                <span id="meta-modules" class="meta-val">29 × 29</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Output Res</span>
+                <span id="meta-size" class="meta-val">1024 × 1024 px</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Error Shield</span>
+                <span id="meta-ecc" class="meta-val">Level M (~15%)</span>
+              </div>
+            </div>
+
+            <!-- Payload Summary -->
+            <div class="preview-payload-strip">
+              <span style="font-size: 0.75rem; text-transform: uppercase; font-family: var(--font-mono); color: var(--text-faint);">Payload:</span>
+              <span id="meta-payload" class="payload-text">https://github.com</span>
+            </div>
+
+            <!-- Action Dock -->
+            <div class="preview-actions-dock">
+              <div class="action-buttons-grid">
+                <button type="button" id="btn-download-png" class="btn-dock-action primary-dl" title="Download High-Resolution PNG">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  Download PNG
+                </button>
+                <button type="button" id="btn-download-svg" class="btn-dock-action" title="Download Scalable Vector SVG">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                  Download SVG
+                </button>
+              </div>
+              <div class="action-buttons-grid">
+                <button type="button" id="btn-copy-clipboard" class="btn-dock-action" title="Copy image to system clipboard">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  Copy Image
+                </button>
+                <button type="button" id="btn-copy-svg" class="btn-dock-action" title="Copy raw SVG markup to clipboard">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                  Copy Vector
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         RECENT QR CODES (LOCAL HISTORY SECTION)
+         ======================================================================== -->
+    <section id="history" class="history-section">
+      <div class="container">
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">Recent Codes</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Stored securely in your local browser sandbox</p>
+          </div>
+          <button type="button" id="btn-clear-history" class="btn-ghost-sm" title="Clear all saved entries">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            Clear History
+          </button>
+        </div>
+
+        <div id="history-grid" class="history-grid">
+          <!-- Populated dynamically by app.js -->
+          <div id="history-empty" class="history-empty-state">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <p style="font-weight: 600; color: var(--text-secondary); margin-bottom: 0.25rem;">No saved codes yet</p>
+            <p style="font-size: 0.82rem;">Generate your first QR code in the studio above to build your collection.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         HOW IT WORKS (WORKFLOW SECTION)
+         ======================================================================== -->
+    <section id="how-it-works" class="workflow-section">
+      <div class="container">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+          <h2 class="section-title" style="font-size: 1.8rem;">How It Works</h2>
+          <p style="font-size: 0.92rem; color: var(--text-muted); margin-top: 0.4rem;">
+            From raw link to production-grade vector asset in three intuitive steps.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <!-- Step 1 -->
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <h3 class="step-title">Enter your content</h3>
+            <p class="step-desc">
+              Choose your payload: direct URLs, contact cards, Wi-Fi keys, emails, or plain text with automatic validation.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <h3 class="step-title">Customize your design</h3>
+            <p class="step-desc">
+              Select module geometry, tailor foreground & background lighting, audit contrast, and add center emblems.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <h3 class="step-title">Download & share</h3>
+            <p class="step-desc">
+              Export ultra-sharp PNGs up to 2048px or download scalable vector SVGs ready for Illustrator, Figma, or print.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         FEATURES & ARCHITECTURE HIGHLIGHTS
+         ======================================================================== -->
+    <section class="features-section">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature-pill-card">
+            <h4>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-lime)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              WCAG Contrast Audit
+            </h4>
+            <p>Real-time scannability engine ensures your colors scan reliably on mobile cameras.</p>
+          </div>
+          <div class="feature-pill-card">
+            <h4>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-lime)" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              Vector SVG & 4K PNG
+            </h4>
+            <p>Infinite resolution vector output suitable for signage, packaging, and digital branding.</p>
+          </div>
+          <div class="feature-pill-card">
+            <h4>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-lime)" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              100% Client-Side Privacy
+            </h4>
+            <p>Zero tracking, zero analytics, and zero external API roundtrips. Everything stays on your device.</p>
+          </div>
+          <div class="feature-pill-card">
+            <h4>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-lime)" stroke-width="2.5"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+              Dual Web & CLI Engine
+            </h4>
+            <p>Works both in browser and terminal via original Node CLI script for developer pipelines.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="brand-name" style="font-size: 1.15rem;">
+            QR Atelier
+            <span class="brand-tag">Open Source</span>
+          </div>
+          <p class="footer-desc">
+            Precision QR creation studio. Crafted for creators, designers, and engineers.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#generator">Studio</a>
+          <a href="#customizer">Customizer</a>
+          <a href="#history">Saved History</a>
+          <a href="#how-it-works">Workflow</a>
+          <a href="https://github.com/harvir011" target="_blank" rel="noopener noreferrer">Developer Profile</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 QR Atelier • Precision Design Studio. Free & Open Source.</div>
+        <div style="font-family: var(--font-mono); font-size: 0.75rem;">
+          Terminal mode: <code>npm run cli</code> &bull; Local server: <code>npm start</code>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       FLOATING TOAST NOTIFICATION
+       ======================================================================== -->
+  <div id="toast-notification" class="toast-container" role="status" aria-live="polite">
+    <span class="toast-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </span>
+    <span id="toast-message">QR Code generated successfully!</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="vendor/qrcode.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

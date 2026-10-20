@@ -1,17 +1,31 @@
 {
-  "name": "qrgenerator",
-  "version": "1.0.0",
-  "description": "",
+  "name": "qr-atelier",
+  "version": "2.0.0",
+  "description": "QR Atelier — A modern, distinctive, design-forward QR Code creative studio web application and CLI",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node serve.js",
+    "serve": "node serve.js",
+    "cli": "node script.js",
+    "test": "node test.js"
   },
-  "keywords": [],
+  "keywords": [
+    "qr",
+    "qrcode",
+    "generator",
+    "studio",
+    "atelier",
+    "svg",
+    "png",
+    "dark-mode"
+  ],
   "author": "HARVIR KAUR",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "inquirer": "^8.2.6",
-    "qr-image": "^3.2.0"
+    "qr-image": "^3.2.0",
+    "qrcode": "^1.5.4",
+    "qrcode-generator": "^2.0.4"
   }
 }
